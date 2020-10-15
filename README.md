@@ -1,4 +1,5 @@
 # Dropbox OAuth Popup Window
+[![npm](https://img.shields.io/npm/v/dropbox-oauth-popup)](https://www.npmjs.com/package/dropbox-oauth-popup)
 
 This is a simple addition built onto the [Dropbox SDK](https://github.com/dropbox/dropbox-sdk-js) that allows for OAuth in the browser to be done via a popup window.
 
