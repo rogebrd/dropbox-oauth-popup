@@ -22,3 +22,17 @@ popup.authUser((auth) => {
     const dbx = new Dropbox(auth);
 }
 ```
+
+# Distributions
+
+If you are using this via a node project compiled into browser assets, you can install via npm
+
+```
+npm install --save-dev dropbox-oauth-popup
+```
+
+Or you can use it directly in your browser be including the following tag
+
+```
+<script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@1.0.0"></script>
+```
