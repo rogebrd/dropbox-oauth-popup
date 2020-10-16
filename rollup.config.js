@@ -1,4 +1,4 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 
 const umd = {
@@ -13,7 +13,9 @@ const umd = {
     },
   },
   plugins: [
-    babel(),
+    babel({
+      babelHelpers: 'bundled',
+    }),
   ],
   external: ['dropbox'],
 };
@@ -30,7 +32,9 @@ const umdMin = {
     },
   },
   plugins: [
-    babel(),
+    babel({
+      babelHelpers: 'bundled',
+    }),
     terser(),
   ],
   external: ['dropbox'],
