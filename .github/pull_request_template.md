@@ -3,7 +3,7 @@
 
 **Is This a Code Change?**
 - [ ] Non-code related change (markdown/git settings etc)
-- [ ] SDK Code Change
+- [ ] Core Code Change
 - [ ] Example/Test Code Change
 
 **Validation**

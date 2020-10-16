@@ -1,6 +1,6 @@
 ---
 name: ':rocket: Feature Request'
-about: Suggest an idea for this SDK
+about: Suggest an idea
 title: ''
 labels: enhancement
 assignees: 'rogebrd'
