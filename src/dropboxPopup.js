@@ -1,5 +1,10 @@
 import { DropboxAuth } from 'dropbox';
 
+/**
+ * This function is meant to run on page load and is in charge
+ * of dispatching messages from the popup window back to the
+ * main window.
+ */
 function dispatchResult() {
   const params = window.location.href;
   if (window.opener) {
@@ -14,6 +19,15 @@ window.addEventListener('load', dispatchResult);
 
 const popupFeatures = 'toolbar=no, menubar=no, width=600, height=800, top=100, left=100';
 const popupName = 'Dropbox OAuth';
+
+/**
+ * @class DropboxPopup
+ * @classdesc The DropboxPopup class is to provide a simple popup window to preform OAuth in.
+ * @arg {Object} options
+ * @arg {String} [options.clientId] - The client id for your app.
+ * @arg {String} [options.clientSecret] - The client secret for your app.
+ * @arg {String} [options.redirectUri] - The redirect Uri to return to once auth is complete.
+ */
 export default class DropboxPopup {
   constructor(options) {
     this.clientId = options.clientId;
@@ -26,6 +40,11 @@ export default class DropboxPopup {
     this.codeOffset = this.redirectUri.length + 7; // format is `${redirectUri}/?code={code}
   }
 
+  /**
+   * The main function to handle authentication via a popup window.
+   * @param {Function} callback - The callback function which will utilize the DropboxAuth object.
+   * @returns {void}
+   */
   authUser(callback) {
     window.removeEventListener('message', this.handleRedirect);
     this.callback = callback;
@@ -37,6 +56,11 @@ export default class DropboxPopup {
     window.addEventListener('message', (event) => this.handleRedirect(event), false);
   }
 
+  /**
+   * The function in charge of handling the redirect once the popup has completed.
+   * @param {MessageEvent} event - The incoming message from the popup window.
+   * @return {void}
+   */
   handleRedirect(event) {
     const { data } = event;
     const code = data.substring(this.codeOffset);
