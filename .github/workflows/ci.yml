@@ -12,18 +12,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     continue-on-error: true
     steps:
-      - name: 🛎️ Checkout Package
+      - name: Checkout Package 🛎️
         uses: actions/checkout@v2
-      - name: 🎱 Setup Node.JS
+      - name: Setup Node.JS 🎱
         uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node }}
-      - name: 📥 Install Package
+      - name: Install Package 📥
         run: |
           npm install
-      - name: 🏗️ Build Package
+      - name: Build Package 🏗️
         run: |
           npm run build
-      - name: 🗞️ Run Linter
+      - name: Run Linter 🗞️
         run: |
           npm run lint

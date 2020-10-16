@@ -8,19 +8,19 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: 🛎️ Checkout Package
+      - name: Checkout Package 🛎️
         uses: actions/checkout@v2
-      - name: 🎱 Setup Node.JS
+      - name: Setup Node.JS 🎱
         uses: actions/setup-node@v2.1.2
         with:
           node-version: 14
-      - name: 📥 Install Package
+      - name: Install Package 📥
         run: |
           npm install
-      - name: 🏗️ Build Package
+      - name: Build Package 🏗️
         run: |
           npm run build
-      - name: 📦 Publish to NPM
+      - name: Publish to NPM 📦
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
