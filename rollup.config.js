@@ -1,8 +1,12 @@
 import babel from 'rollup-plugin-babel';
+import { terser } from 'rollup-plugin-terser';
 
-const config = {
+const umd = {
+    input: 'src/dropboxPopup.js',
     output: {
+        file: __dirname + '/dist/dropboxPopup.js',
         format: 'umd',
+        name: 'DropboxPopup',
         sourcemap: true,
         globals: {
             'dropbox': 'Dropbox'
@@ -14,4 +18,22 @@ const config = {
     external: ['dropbox']
 };
 
-export default config;
+const umd_min = {
+    input: 'src/dropboxPopup.js',
+    output: {
+        file: __dirname + '/dist/dropboxPopup.min.js',
+        format: 'umd',
+        name: 'DropboxPopup',
+        sourcemap: false,
+        globals: {
+            'dropbox': 'Dropbox'
+        }
+    },
+    plugins: [
+        babel(),
+        terser()
+    ],
+    external: ['dropbox']
+};
+
+export default [umd, umd_min];
