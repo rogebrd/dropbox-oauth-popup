@@ -1,5 +1,5 @@
 ---
-name: "\U0001F4AC Questions / Help"
+name: ':speech_balloon: Questions / Help'
 about: Get help with issues you are experiencing
 title: ''
 labels: help-wanted, question

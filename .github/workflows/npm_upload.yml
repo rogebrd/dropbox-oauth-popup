@@ -1,0 +1,24 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ':bellhop_bell: Checkout Package'
+        uses: actions/checkout@v2
+      - name: ':gear: Setup Node.JS'
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: 14
+      - name: ':building_construction: Build Package'
+        run: |
+          npm install
+          npm run build
+      - name: ':rocket: Publish to NPM'
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}

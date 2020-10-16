@@ -1,5 +1,5 @@
 ---
-name: "\U0001F680 Feature Request"
+name: ':rocket: Feature Request'
 about: Suggest an idea for this SDK
 title: ''
 labels: enhancement
