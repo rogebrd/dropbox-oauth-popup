@@ -1,9 +1,10 @@
-# Dropbox OAuth Popup Window
+[![Logo][logo]][repo]
+
 [![npm](https://img.shields.io/npm/v/dropbox-oauth-popup)](https://www.npmjs.com/package/dropbox-oauth-popup)
 
-This is a simple addition built onto the [Dropbox SDK](https://github.com/dropbox/dropbox-sdk-js) that allows for OAuth in the browser to be done via a popup window.
+This is a simple addition built onto the [Dropbox SDK][sdk] that allows for OAuth in the browser to be done via a popup window.
 
-# Usage
+## Usage
 
 1. Create a new instance of the `DropboxPopup` class
 
@@ -23,7 +24,7 @@ popup.authUser((auth) => {
 }
 ```
 
-# Distributions
+## Distributions
 
 If you are using this via a node project compiled into browser assets, you can install via npm
 
@@ -34,5 +35,14 @@ npm install --save-dev dropbox-oauth-popup
 Or you can use it directly in your browser be including the following tag
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@1.0.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@1.2.0"></script>
 ```
+
+## License
+
+This package is distributed under the MIT license, please see [LICENSE][license] for more information.
+
+[logo]: https://repository-images.githubusercontent.com/304185097/6579e180-0fd1-11eb-9d46-91db905a363a
+[repo]: https://github.com/rogebrd/dropbox-oauth-popup
+[sdk]: https://github.com/dropbox/dropbox-sdk-js
+[license]: https://github.com/rogebrd/dropbox-oauth-popup/blob/main/LICENSE

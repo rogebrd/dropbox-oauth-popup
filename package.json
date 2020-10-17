@@ -1,9 +1,11 @@
 {
   "name": "dropbox-oauth-popup",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "registry": "npm",
   "description": "This is a simple addition built onto the Dropbox SDK that allows for OAuth in the browser to be done via a popup window.",
   "homepage": "https://github.com/rogebrd/dropbox-oauth-popup",
+  "author": "Brad Rogers <brad12rogers@gmail.com>",
+  "license": "MIT",
   "main": "src/dropboxPopup.js",
   "browser": "dist/dropboxPopup.js",
   "scripts": {
@@ -12,8 +14,6 @@
     "lint": "eslint *.js .",
     "lint-fix": "eslint *.js . --fix"
   },
-  "author": "Brad Rogers <brad12rogers@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.0",
     "@babel/preset-env": "^7.12.0",
@@ -28,11 +28,31 @@
   "dependencies": {
     "dropbox": "^7.1.0"
   },
+  "browserslist": [
+    "> 0.25%",
+    "not dead"
+  ],
+  "files": [
+    "*.md",
+    "LICENSE",
+    "src",
+    "test",
+    "dist"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rogebrd/dropbox-oauth-popup.git"
+    "url": "https://github.com/rogebrd/dropbox-oauth-popup.git"
   },
   "bugs": {
     "url": "https://github.com/rogebrd/dropbox-oauth-popup/issues"
-  }
+  },
+  "keywords": [
+    "dropbox",
+    "auth",
+    "oauth",
+    "popup",
+    "browser",
+    "front-end",
+    "window"
+  ]
 }
