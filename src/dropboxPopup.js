@@ -6,7 +6,7 @@ import { DropboxAuth } from 'dropbox';
  * main window.
  */
 function dispatchResult() {
-  const params = window.location.href;
+  const params = window.location.search;
   if (window.opener) {
     // send them to the opening window
     window.opener.postMessage(params);
@@ -37,7 +37,6 @@ export default class DropboxPopup {
       clientSecret: this.clientSecret,
     });
     this.redirectUri = options.redirectUri;
-    this.codeOffset = this.redirectUri.length + 7; // format is `${redirectUri}/?code={code}
   }
 
   /**
@@ -65,7 +64,8 @@ export default class DropboxPopup {
    */
   handleRedirect(event) {
     const { data } = event;
-    const code = data.substring(this.codeOffset);
+    const urlParams = new URLSearchParams(data);
+    const code = urlParams.get('code');
     this.authObject.getAccessTokenFromCode(this.redirectUri, code)
       .then((response) => {
         const { result } = response;
