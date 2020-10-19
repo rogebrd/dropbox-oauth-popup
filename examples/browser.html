@@ -33,7 +33,7 @@
                     const dbx = new Dropbox.Dropbox(auth);
                     dbx.usersGetCurrentAccount()
                         .then((response) => {
-                            document.getElementById("result").innerHTML = response.result;
+                            document.getElementById("result").innerHTML = JSON.stringify(response.result);
                         })
                         .catch((error) => {
                             document.getElementById("result").innerHTML = error;
