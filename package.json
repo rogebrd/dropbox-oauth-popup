@@ -1,6 +1,6 @@
 {
   "name": "dropbox-oauth-popup",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "registry": "npm",
   "description": "This is a simple addition built onto the Dropbox SDK that allows for OAuth in the browser to be done via a popup window.",
   "homepage": "https://github.com/rogebrd/dropbox-oauth-popup",
@@ -13,7 +13,8 @@
     "build": "rollup -c",
     "lint": "eslint *.js .",
     "lint-fix": "eslint *.js . --fix",
-    "generate-docs": "jsdoc -c ./.jsdoc.json"
+    "generate-docs": "jsdoc -c ./.jsdoc.json",
+    "clean": "rm -rf docs dist"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
@@ -22,6 +23,7 @@
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^30.6.5",
     "express": "^4.17.1",
     "jsdoc": "^3.6.6",
     "rollup": "^2.30.0",

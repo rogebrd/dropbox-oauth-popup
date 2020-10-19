@@ -23,10 +23,10 @@ const popupName = 'Dropbox OAuth';
 /**
  * @class DropboxPopup
  * @classdesc The DropboxPopup class is to provide a simple popup window to preform OAuth in.
- * @arg {Object} options
- * @arg {String} [options.clientId] - The client id for your app.
- * @arg {String} [options.clientSecret] - The client secret for your app.
- * @arg {String} [options.redirectUri] - The redirect Uri to return to once auth is complete.
+ * @param {object} options
+ * @param {string} [options.clientId] - The client id for your app.
+ * @param {string} [options.clientSecret] - The client secret for your app.
+ * @param {string} [options.redirectUri] - The redirect Uri to return to once auth is complete.
  */
 export default class DropboxPopup {
   constructor(options) {
@@ -42,6 +42,7 @@ export default class DropboxPopup {
 
   /**
    * The main function to handle authentication via a popup window.
+   *
    * @param {Function} callback - The callback function which will utilize the DropboxAuth object.
    * @returns {void}
    */
@@ -58,8 +59,9 @@ export default class DropboxPopup {
 
   /**
    * The function in charge of handling the redirect once the popup has completed.
+   *
    * @param {MessageEvent} event - The incoming message from the popup window.
-   * @return {void}
+   * @returns {void}
    */
   handleRedirect(event) {
     const { data } = event;
