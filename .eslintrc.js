@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
+    'plugin:jsdoc/recommended',
   ],
   parserOptions: {
     ecmaVersion: 12,
@@ -14,4 +15,7 @@ module.exports = {
   rules: {
     'import/extensions': 0,
   },
+  plugins: [
+    'jsdoc',
+  ],
 };
