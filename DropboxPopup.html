@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>DropboxPopup<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>DropboxPopup<span class="signature">(options, windowOptions)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">The DropboxPopup class is to provide a simple popup window to preform OAuth in.</div>
         
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="DropboxPopup"><span class="type-signature"></span>new DropboxPopup<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DropboxPopup"><span class="type-signature"></span>new DropboxPopup<span class="signature">(options, windowOptions)</span><span class="type-signature"></span></h4>
     
 
     
@@ -225,6 +225,367 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>tokenAccessType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">type of token to request.  From the following:
+legacy - creates one long-lived token with no expiration
+online - create one short-lived token with an expiration
+offline - create one short-lived token with an expiration with a refresh token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scope</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">scopes to request for the grant</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeGrantedScopes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">whether or not to include
+previously granted scopes.
+From the following:
+user - include user scopes in the grant
+team - include team scopes in the grant
+Note: if this user has never linked the app, include_granted_scopes must be None</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>usePKCE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Whether or not to use Sha256 based PKCE.
+PKCE should be only use on client apps which doesn't call your server.
+It is less secure than non-PKCE flow but can be used if you are unable to safely
+retrieve your app secret</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>windowOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The width of the popup window in pixels.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The height of the popup window in pixels.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>top</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The number of pixels from the top of the screen.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>left</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The number of pixels from the left side of the screen.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>additionalParams</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Any additional parameters desired to be used
+with the window.open() command. Note, by default, we add the parameters toolbar=no and menubar=no
+in order to ensure this opens as a popup.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -269,7 +630,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dropboxPopup.js.html">dropboxPopup.js</a>, <a href="dropboxPopup.js.html#line23">line 23</a>
+        <a href="dropboxPopup.js.html">dropboxPopup.js</a>, <a href="dropboxPopup.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -337,7 +698,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Oct 21 2020 00:40:05 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Oct 21 2020 04:01:40 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
