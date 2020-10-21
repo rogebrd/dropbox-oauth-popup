@@ -2,8 +2,8 @@ name: Release Publisher
 
 on:
   push:
-    branches:
-      - refs/tags/*
+    tags:
+      - '*'
 
 jobs:
   release:
