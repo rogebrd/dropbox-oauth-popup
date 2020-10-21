@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Package 🛎️
         uses: actions/checkout@v2
@@ -16,6 +16,7 @@ jobs:
         run: |
           last_version=$(git tag --sort v:refname | tail -n 2 | head -n 1)
           num_commits=$(git rev-list --count $last_version..HEAD)
+          echo "$num_commits since $last_version"
           git_log=$(git log -n $num_commits --pretty="format:* %s %n")
           linked_log=$(echo "Release Notes: \n\n$git_log" | sed -e 's/#\([0-9]*\)/[#\1](https:\/\/github.com\/rogebrd\/dropbox-oauth-popup\/pull\/\1)/g')
           linked_log="${linked_log//'%'/'%25'}"
