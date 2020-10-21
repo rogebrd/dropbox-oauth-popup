@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <script rel="stylesheet" src="styles.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dropbox/dist/Dropbox-sdk.js"></script>
@@ -11,24 +10,38 @@
 
 <body>
     <div>
-        <h1>Dropbox OAuth Popup Window Example</h1>
+        <h1>Dropbox OAuth Popup Window</h1>
+        <p>
+            See the Dropbox OAuth Popup Window in action by clicking the run example button.
+            This example will authenticate with your Dropbox account and use the token to fetch
+            the current account using the `users.getCurrentAccount` endpoint. (Note, nothing is
+            saved, this is just a demo.)
+        </p>
+        <p>See the code on <a
+                href="https://github.com/rogebrd/dropbox-oauth-popup/blob/main/examples/browser.html">GitHub</a></p>
         <button onclick="runAuth()">Run Example</button>
         <p id="result"></p>
         <script>
             const popup = new DropboxPopup({
-                clientId: 'XXXXXXXXXX',
-                clientSecret: 'XXXXXXXXXX',
-                redirectUri: 'https://XXXXXXXXXX'
+                clientId: 'a04f1ghft6a45rn',
+                clientSecret: 'tbjemcamktbyiy9',
+                redirectUri: 'http://localhost:8080'
+            }, {
+                height: 600,
+                width: 400,
+                top: 100,
+                left: 100
             });
             function runAuth() {
+                document.getElementById("result").innerHTML = "Waiting for auth...";
                 popup.authUser((auth) => {
                     const dbx = new Dropbox.Dropbox(auth);
                     dbx.usersGetCurrentAccount()
                         .then((response) => {
-                            document.getElementById("result").innerHTML = result.result;
+                            document.getElementById("result").innerHTML = JSON.stringify(response.result);
                         })
                         .catch((error) => {
-                            console.error(error);
+                            document.getElementById("result").innerHTML = error;
                         });
                 });
             }

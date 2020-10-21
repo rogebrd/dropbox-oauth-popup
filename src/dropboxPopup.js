@@ -17,8 +17,15 @@ function dispatchResult() {
 
 window.addEventListener('load', dispatchResult);
 
-const popupFeatures = 'toolbar=no, menubar=no, width=600, height=800, top=100, left=100';
-const popupName = 'Dropbox OAuth';
+const windowName = 'Dropbox OAuth';
+const defaultWindowOptions = {
+  toolbar: 'no',
+  menubar: 'no',
+  width: 600,
+  height: 800,
+  top: 100,
+  left: 100,
+};
 
 /**
  * @class DropboxPopup
@@ -27,16 +34,57 @@ const popupName = 'Dropbox OAuth';
  * @param {string} [options.clientId] - The client id for your app.
  * @param {string} [options.clientSecret] - The client secret for your app.
  * @param {string} [options.redirectUri] - The redirect Uri to return to once auth is complete.
+ * @param {string} [options.tokenAccessType] - type of token to request.  From the following:
+ * legacy - creates one long-lived token with no expiration
+ * online - create one short-lived token with an expiration
+ * offline - create one short-lived token with an expiration with a refresh token
+ * @param {Array<string>} [options.scope] - scopes to request for the grant
+ * @param {string} [options.includeGrantedScopes] - whether or not to include
+ * previously granted scopes.
+ * From the following:
+ * user - include user scopes in the grant
+ * team - include team scopes in the grant
+ * Note: if this user has never linked the app, include_granted_scopes must be None
+ * @param {boolean} [options.usePKCE] - Whether or not to use Sha256 based PKCE.
+ * PKCE should be only use on client apps which doesn't call your server.
+ * It is less secure than non-PKCE flow but can be used if you are unable to safely
+ * retrieve your app secret
+ * @param {object} windowOptions
+ * @param {number} [windowOptions.width] - The width of the popup window in pixels.
+ * @param {number} [windowOptions.height] - The height of the popup window in pixels.
+ * @param {number} [windowOptions.top] - The number of pixels from the top of the screen.
+ * @param {number} [windowOptions.left] - The number of pixels from the left side of the screen.
+ * @param {object} [windowOptions.additionalParams] - Any additional parameters desired to be used
+ * with the window.open() command. Note, by default, we add the parameters toolbar=no and menubar=no
+ * in order to ensure this opens as a popup.
  */
 export default class DropboxPopup {
-  constructor(options) {
+  constructor(options, windowOptions) {
     this.clientId = options.clientId;
-    this.clientSecret = options.clientSecret;
+    this.redirectUri = options.redirectUri;
+    this.clientSecret = options.clientSecret || '';
+    this.tokenAccessType = options.tokenAccessType || 'offline';
+    this.scope = options.scope || null;
+    this.includeGrantedScopes = options.includeGrantedScopes || 'none';
+    this.usePKCE = options.usePKCE || false;
+
     this.authObject = new DropboxAuth({
       clientId: this.clientId,
       clientSecret: this.clientSecret,
     });
-    this.redirectUri = options.redirectUri;
+
+    this.state = Math.random().toString(36).substring(7);
+
+    // Set window options with format of key=value,key=value...
+    const overlayedWindowOptions = Object.assign(defaultWindowOptions, windowOptions);
+    this.windowOptions = '';
+    Object.keys(overlayedWindowOptions).forEach((key) => {
+      if (this.windowOptions === '') {
+        this.windowOptions = `${key}=${overlayedWindowOptions[key]}`;
+      } else {
+        this.windowOptions = this.windowOptions.concat(`, ${key}=${overlayedWindowOptions[key]}`);
+      }
+    });
   }
 
   /**
@@ -49,8 +97,8 @@ export default class DropboxPopup {
     window.removeEventListener('message', this.handleRedirect);
     this.callback = callback;
     this.callback.bind(this);
-    const authUrl = this.authObject.getAuthenticationUrl(this.redirectUri, '', 'code', 'offline');
-    const popupWindow = window.open(authUrl, popupName, popupFeatures);
+    const authUrl = this.authObject.getAuthenticationUrl(this.redirectUri, this.state, 'code', this.tokenAccessType, this.scope, this.includeGrantedScopes, this.usePKCE);
+    const popupWindow = window.open(authUrl, windowName, this.windowOptions);
     popupWindow.focus();
 
     window.addEventListener('message', (event) => this.handleRedirect(event), false);
