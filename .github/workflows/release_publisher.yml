@@ -1,0 +1,30 @@
+name: Release Publisher
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Package 🛎️
+        uses: actions/checkout@v2
+      - name: Compose Release
+        id: release_body
+        run: |
+          last_version=$(git tag --sort v:refname | tail -n 2 | head -n 1)
+          num_commits=$(git rev-list --count $last_version..HEAD)
+          git_log=$(git log -n $num_commits --pretty="format:* %s %n")
+          linked_log=$(echo "Release Notes: \n\n$git_log" | sed -e 's/#\([0-9]*\)/[#\1](https:\/\/github.com\/rogebrd\/dropbox-oauth-popup\/pull\/\1)/g')
+          echo "::set-output name=release_body::$linked_log"
+      - name: Build Package 🏗️
+        run: |
+          npm run build
+      - name: Publish Release 
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{ steps.release_body.outputs.release_body }}
