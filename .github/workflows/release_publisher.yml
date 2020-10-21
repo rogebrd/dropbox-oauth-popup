@@ -1,9 +1,9 @@
 name: Release Publisher
 
 on:
-  create:
-    tags:
-      - v*
+  push:
+    branches:
+      - refs/tags/*
 
 jobs:
   release:
@@ -19,9 +19,6 @@ jobs:
           git_log=$(git log -n $num_commits --pretty="format:* %s %n")
           linked_log=$(echo "Release Notes: \n\n$git_log" | sed -e 's/#\([0-9]*\)/[#\1](https:\/\/github.com\/rogebrd\/dropbox-oauth-popup\/pull\/\1)/g')
           echo "::set-output name=release_body::$linked_log"
-      - name: Build Package 🏗️
-        run: |
-          npm run build
       - name: Publish Release 
         uses: actions/create-release@v1
         with:
