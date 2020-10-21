@@ -31,7 +31,7 @@ const defaultWindowOptions = {
  * @class DropboxPopup
  * @classdesc The DropboxPopup class is to provide a simple popup window to preform OAuth in.
  * @param {object} options
- * @param {string} [options.clientId] - The client id for your app.
+ * @param {string} options.clientId - The client id for your app.
  * @param {string} [options.clientSecret] - The client secret for your app.
  * @param {string} [options.redirectUri] - The redirect Uri to return to once auth is complete.
  * @param {string} [options.tokenAccessType] - type of token to request.  From the following:
@@ -49,7 +49,7 @@ const defaultWindowOptions = {
  * PKCE should be only use on client apps which doesn't call your server.
  * It is less secure than non-PKCE flow but can be used if you are unable to safely
  * retrieve your app secret
- * @param {object} windowOptions
+ * @param {object} [windowOptions]
  * @param {number} [windowOptions.width] - The width of the popup window in pixels.
  * @param {number} [windowOptions.height] - The height of the popup window in pixels.
  * @param {number} [windowOptions.top] - The number of pixels from the top of the screen.
