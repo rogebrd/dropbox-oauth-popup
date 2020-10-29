@@ -14,7 +14,8 @@ jobs:
       - name: Compose Release
         id: release_body
         run: |
-          last_version=$(git tag --sort v:refname | tail -n 2 | head -n 1)
+          echo "$(git tag --sort v:refname)"
+          last_version=$(git tag --sort v:refname | tail -n 3 | head -n 1)
           num_commits=$(git rev-list --count $last_version..HEAD)
           echo "$num_commits since $last_version"
           git_log=$(git log -n $num_commits --pretty="format:* %s %n")
