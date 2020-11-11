@@ -15,12 +15,12 @@ jobs:
         id: release_body
         run: |
           git fetch --all --tags --force
-          echo "$(git tag --sort v:refname)"
+          most_recent_version=$(git tag --sort v:refname | tail -n 1)
           last_version=$(git tag --sort v:refname | tail -n 2 | head -n 1)
-          num_commits=$(git rev-list --count $last_version..HEAD)
+          num_commits=$(git rev-list --count $last_version..$most_recent_version)
           echo "$num_commits since $last_version"
           git_log=$(git log -n $num_commits --pretty="format:* %s %n")
-          linked_log=$(echo "Release Notes: $git_log")
+          linked_log=$(echo "Release Notes:\n\n$git_log")
           echo "Raw Log: $linked_log"
           linked_log="${linked_log//#\([0-9]*\[#\1](https:\/\/github.com\/rogebrd\/dropbox-oauth-popup\/pull\/\1))}"
           echo "Replaced Log: $linked_log"
@@ -36,5 +36,5 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           body: ${{ steps.release_body.outputs.release_body }}
-          draft: true
+          draft: false
           prerelease: false
