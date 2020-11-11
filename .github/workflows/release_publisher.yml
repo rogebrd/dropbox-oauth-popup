@@ -14,7 +14,7 @@ jobs:
       - name: Compose Release
         id: release_body
         run: |
-          git fetch --all --tags
+          git fetch --all --tags --force
           echo "$(git tag --sort v:refname)"
           last_version=$(git tag --sort v:refname | tail -n 2 | head -n 1)
           num_commits=$(git rev-list --count $last_version..HEAD)
