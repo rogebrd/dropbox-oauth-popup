@@ -31,10 +31,10 @@
                 width: 400,
                 top: 100,
                 left: 100
-            });
+            }, 200000);
             function runAuth() {
                 document.getElementById("result").innerHTML = "Waiting for auth...";
-                popup.authUser((auth) => {
+                popup.authUser().then((auth) => {
                     const dbx = new Dropbox.Dropbox(auth);
                     dbx.usersGetCurrentAccount()
                         .then((response) => {
@@ -43,6 +43,8 @@
                         .catch((error) => {
                             document.getElementById("result").innerHTML = error;
                         });
+                }).catch((error) => {
+                    document.getElementById("result").innerHTML = error;
                 });
             }
         </script>
