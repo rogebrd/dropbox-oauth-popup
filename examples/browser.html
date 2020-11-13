@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dropbox/dist/Dropbox-sdk.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@2.0.0/dist/dropboxPopup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@2.0.1/dist/dropboxPopup.js"></script>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
             });
             function runAuth() {
                 document.getElementById("result").innerHTML = "Waiting for auth...";
-                popup.authUser((auth) => {
+                popup.authUser().then((auth) => {
                     const dbx = new Dropbox.Dropbox(auth);
                     dbx.usersGetCurrentAccount()
                         .then((response) => {
