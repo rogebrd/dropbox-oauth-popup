@@ -1,6 +1,6 @@
 {
   "name": "dropbox-oauth-popup",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "registry": "npm",
   "description": "This is a simple addition built onto the Dropbox SDK that allows for OAuth in the browser to be done via a popup window.",
   "homepage": "https://github.com/rogebrd/dropbox-oauth-popup",

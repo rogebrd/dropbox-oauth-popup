@@ -25,9 +25,11 @@ const popup = new DropboxPopup({
 2. Run the popup window, giving your callback function for use with the `DropboxAuth` object
 
 ```
-popup.authUser((auth) => {
+popup.authUser().then((auth) => {
     const dbx = new Dropbox(auth);
-}
+}).catch((error) => {
+    console.err(error);
+})
 ```
 
 ## Distributions
@@ -41,7 +43,7 @@ npm install --save-dev dropbox-oauth-popup
 Or you can use it directly in your browser be including the following tag
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@1.4.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@2.0.1"></script>
 ```
 
 ## License
