@@ -27,6 +27,8 @@ const defaultWindowOptions = {
   left: 100,
 };
 
+const defaultTimeout = 300000; // 5 minutes
+
 /**
  * @class DropboxPopup
  * @classdesc The DropboxPopup class is to provide a simple popup window to preform OAuth in.
@@ -57,9 +59,10 @@ const defaultWindowOptions = {
  * @param {object} [windowOptions.additionalParams] - Any additional parameters desired to be used
  * with the window.open() command. Note, by default, we add the parameters toolbar=no and menubar=no
  * in order to ensure this opens as a popup.
+ * @param {number} timeout - The timeout for when to give up on the promise and throw an error
  */
 export default class DropboxPopup {
-  constructor(options, windowOptions) {
+  constructor(options, windowOptions, timeout) {
     this.clientId = options.clientId;
     this.redirectUri = options.redirectUri;
     this.clientSecret = options.clientSecret || '';
@@ -67,6 +70,7 @@ export default class DropboxPopup {
     this.scope = options.scope || null;
     this.includeGrantedScopes = options.includeGrantedScopes || 'none';
     this.usePKCE = options.usePKCE || false;
+    this.timeout = timeout || defaultTimeout;
 
     this.authObject = new DropboxAuth({
       clientId: this.clientId,
@@ -90,40 +94,44 @@ export default class DropboxPopup {
   /**
    * The main function to handle authentication via a popup window.
    *
-   * @param {Function} callback - The callback function which will utilize the DropboxAuth object.
-   * @returns {void}
+   * @returns {Promise<DropboxAuth>} The promise which contains the end auth object
    */
-  authUser(callback) {
-    window.removeEventListener('message', this.handleRedirect);
-    this.callback = callback;
-    this.callback.bind(this);
-    const authUrl = this.authObject.getAuthenticationUrl(this.redirectUri, this.state, 'code', this.tokenAccessType, this.scope, this.includeGrantedScopes, this.usePKCE);
-    const popupWindow = window.open(authUrl, windowName, this.windowOptions);
-    popupWindow.focus();
+  authUser() {
+    const popup = this;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error('Request timed out'));
+      }, popup.timeout);
 
-    window.addEventListener('message', (event) => this.handleRedirect(event), false);
-  }
+      /**
+       * The function in charge of handling the redirect once the popup has completed.
+       *
+       * @param {MessageEvent} event - The incoming message from the popup window.
+       * @returns {void}
+       */
+      function handleRedirect(event) {
+        window.removeEventListener('message', popup.handleRedirect);
 
-  /**
-   * The function in charge of handling the redirect once the popup has completed.
-   *
-   * @param {MessageEvent} event - The incoming message from the popup window.
-   * @returns {void}
-   */
-  handleRedirect(event) {
-    const { data } = event;
-    const urlParams = new URLSearchParams(data);
-    const code = urlParams.get('code');
-    this.authObject.getAccessTokenFromCode(this.redirectUri, code)
-      .then((response) => {
-        const { result } = response;
-        this.authObject.setAccessToken(result.access_token);
-        this.authObject.setRefreshToken(result.refresh_token);
-        this.authObject.setAccessTokenExpiresAt(new Date(Date.now() + result.expires_in));
-        this.callback(this.authObject);
-      })
-      .catch((error) => {
-        throw error;
-      });
+        const { data } = event;
+        const urlParams = new URLSearchParams(data);
+        const code = urlParams.get('code');
+
+        popup.authObject.getAccessTokenFromCode(popup.redirectUri, code).then((response) => {
+          const { result } = response;
+          popup.authObject.setAccessToken(result.access_token);
+          popup.authObject.setRefreshToken(result.refresh_token);
+          popup.authObject.setAccessTokenExpiresAt(new Date(Date.now() + result.expires_in));
+          resolve(popup.authObject);
+        })
+          .catch((error) => {
+            reject(error);
+          });
+      }
+
+      const authUrl = popup.authObject.getAuthenticationUrl(popup.redirectUri, popup.state, 'code', popup.tokenAccessType, popup.scope, popup.includeGrantedScopes, popup.usePKCE);
+      const popupWindow = window.open(authUrl, windowName, popup.windowOptions);
+      popupWindow.focus();
+      window.addEventListener('message', handleRedirect, false);
+    });
   }
 }
