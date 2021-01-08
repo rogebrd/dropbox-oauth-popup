@@ -30,7 +30,7 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
-    "dropbox": "^7.0.0"
+    "dropbox": "^8.2.0"
   },
   "browserslist": [
     "> 0.25%",
