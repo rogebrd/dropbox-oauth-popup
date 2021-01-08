@@ -120,7 +120,9 @@ export default class DropboxPopup {
           const { result } = response;
           popup.authObject.setAccessToken(result.access_token);
           popup.authObject.setRefreshToken(result.refresh_token);
-          popup.authObject.setAccessTokenExpiresAt(new Date(Date.now() + (result.expires_in * 1000)));
+          popup.authObject.setAccessTokenExpiresAt(
+            new Date(Date.now() + (result.expires_in * 1000)),
+          );
           resolve(popup.authObject);
         })
           .catch((error) => {
