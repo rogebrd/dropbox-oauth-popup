@@ -5,20 +5,17 @@
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dropbox/dist/Dropbox-sdk.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@2.0.1/dist/dropboxPopup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@3.0.0/dist/dropboxPopup.js"></script>
 </head>
 
 <body>
     <div>
         <h1>Dropbox OAuth Popup Window</h1>
         <p>
-            See the Dropbox OAuth Popup Window in action by clicking the run example button.
-            This example will authenticate with your Dropbox account and use the token to fetch
-            the current account using the `users.getCurrentAccount` endpoint. (Note, nothing is
-            saved, this is just a demo.)
+            See the Dropbox OAuth Popup Window in action by clicking the run example button. This example will authenticate with your Dropbox account and use the token to fetch the current account using the `users.getCurrentAccount` endpoint. (Note, nothing is saved,
+            this is just a demo.)
         </p>
-        <p>See the code on <a
-                href="https://github.com/rogebrd/dropbox-oauth-popup/blob/main/examples/browser.html">GitHub</a></p>
+        <p>See the code on <a href="https://github.com/rogebrd/dropbox-oauth-popup/blob/main/examples/browser.html">GitHub</a></p>
         <button onclick="runAuth()">Run Example</button>
         <p id="result"></p>
         <script>
@@ -27,6 +24,7 @@
                 clientSecret: 'tbjemcamktbyiy9',
                 redirectUri: 'https://rogebrd.github.io/dropbox-oauth-popup/tutorial-browser.html'
             });
+
             function runAuth() {
                 document.getElementById("result").innerHTML = "Waiting for auth...";
                 popup.authUser().then((auth) => {

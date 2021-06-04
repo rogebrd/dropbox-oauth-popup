@@ -130,10 +130,12 @@ export default class DropboxPopup {
           });
       }
 
-      const authUrl = popup.authObject.getAuthenticationUrl(popup.redirectUri, popup.state, 'code', popup.tokenAccessType, popup.scope, popup.includeGrantedScopes, popup.usePKCE);
-      const popupWindow = window.open(authUrl, windowName, popup.windowOptions);
-      popupWindow.focus();
-      window.addEventListener('message', handleRedirect, false);
+      popup.authObject.getAuthenticationUrl(popup.redirectUri, popup.state, 'code', popup.tokenAccessType, popup.scope, popup.includeGrantedScopes, popup.usePKCE)
+        .then((authUrl) => {
+          const popupWindow = window.open(authUrl, windowName, popup.windowOptions);
+          popupWindow.focus();
+          window.addEventListener('message', handleRedirect, false);
+        });
     });
   }
 }
