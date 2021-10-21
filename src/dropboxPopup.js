@@ -33,9 +33,9 @@ const defaultTimeout = 300000; // 5 minutes
  * @class DropboxPopup
  * @classdesc The DropboxPopup class is to provide a simple popup window to preform OAuth in.
  * @param {object} options
- * @param {string} options.clientId - The client id for your app.
+ * @param {string} options.clientId - [Required] The client id for your app.
  * @param {string} [options.clientSecret] - The client secret for your app.
- * @param {string} [options.redirectUri] - The redirect Uri to return to once auth is complete.
+ * @param {string} [options.redirectUri] - [Required] The redirect Uri to return to once auth is complete.
  * @param {string} [options.tokenAccessType] - type of token to request.  From the following:
  * legacy - creates one long-lived token with no expiration
  * online - create one short-lived token with an expiration
@@ -110,6 +110,10 @@ export default class DropboxPopup {
        * @returns {void}
        */
       function handleRedirect(event) {
+        if (event.source !== popupWindow) {
+          return;
+        }
+
         window.removeEventListener('message', popup.handleRedirect);
 
         const { data } = event;

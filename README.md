@@ -43,7 +43,7 @@ npm install --save-dev dropbox-oauth-popup
 Or you can use it directly in your browser be including the following tag
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@2.0.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/dropbox-oauth-popup@3.1.0"></script>
 ```
 
 ## License
