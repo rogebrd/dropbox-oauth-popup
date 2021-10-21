@@ -35,7 +35,8 @@ const defaultTimeout = 300000; // 5 minutes
  * @param {object} options
  * @param {string} options.clientId - [Required] The client id for your app.
  * @param {string} [options.clientSecret] - The client secret for your app.
- * @param {string} [options.redirectUri] - [Required] The redirect Uri to return to once auth is complete.
+ * @param {string} [options.redirectUri] - [Required] The redirect Uri to return to once auth is
+ * complete.
  * @param {string} [options.tokenAccessType] - type of token to request.  From the following:
  * legacy - creates one long-lived token with no expiration
  * online - create one short-lived token with an expiration
@@ -110,7 +111,7 @@ export default class DropboxPopup {
        * @returns {void}
        */
       function handleRedirect(event) {
-        if (event.source !== popupWindow) {
+        if (event.source !== popup) {
           return;
         }
 
